@@ -80,16 +80,7 @@
     NSString *const kTestAction02 = NSLocalizedString(@"Tell a Friend", nil);
     NSString *const kTestAction03 = NSLocalizedString(@"Rate on the App Store", nil);
     
-    FCActionController *actionController = [FCActionController actionExecutor:^(NSString *action){
-        NSString *message = NSLocalizedString(@"Execute this Action", nil);
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:action
-                                                                        message:message
-                                                                 preferredStyle:UIAlertControllerStyleAlert];
-        [alertC addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"Ok", nil)
-                                                   style:UIAlertActionStyleCancel
-                                                 handler:nil]];
-        [self presentViewController:alertC animated:YES completion:nil];
-    }];
+    FCActionController *actionController = [FCActionController actionExecutor:^(NSString *action){ NSLog(@"%@", action); }];
     [actionController setWantsWideSize:self.switchControl.isOn];
 
     [actionController addActionObject:[FCActionObject objectWithTitle:NSLocalizedString(@"Advice & Questions", nil)]];
