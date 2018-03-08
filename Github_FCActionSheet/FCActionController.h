@@ -17,7 +17,7 @@
 typedef NS_ENUM(NSUInteger, FCActionType)
 {
     FCActionTitle = 0, // Large title
-    FCActionDefault    // Image on left & text on right
+    FCActionDefault    // Image on left & text on right, image perfered size: 32x32
 };
 
 @interface FCActionObject : NSObject

@@ -458,6 +458,22 @@ typedef NS_ENUM(NSUInteger, FCActionViewSize)
     [self.arrangedViews.lastObject.titleLabel setTextColor:[UIColor colorRGB:255 :48 :86 :1.0f]];
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context){
+        [self layoutContentViewToSize:size];
+    }completion:nil];
+}
+
+- (void)layoutContentViewToSize:(CGSize)size
+{
+    if( [self actionViewSize] == FCActionViewWide )
+    {
+        [self.contentShowConstraint setConstant:size.width > 414 ? (414 - 16) : (size.width - 16)];
+    }
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -511,7 +527,9 @@ typedef NS_ENUM(NSUInteger, FCActionViewSize)
         }
         else
         {
-            [f.widthAnchor constraintEqualToConstant:320].active = YES;
+            [self setContentShowConstraint:[f.widthAnchor constraintEqualToConstant:320]];
+            [self.contentShowConstraint setActive:YES];
+            [self layoutContentViewToSize:self.view.frame.size];
             [f.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor].active = YES;
             [f.centerYAnchor constraintEqualToAnchor:self.view.centerYAnchor].active = YES;
             [f setTransform:CGAffineTransformMakeScale(1.12f, 1.12f)];
